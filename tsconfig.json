@@ -15,7 +15,10 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "test/*": ["./*"]
+      "@ca-apps/*": ["apps/*"],
+      "@core-ui/*": ["components/core-ui/*"],
+      "@crowdmetrix-ui/*": ["components/crowdmetrix-ui/*"],
+      "@crowdmetrix/*": ["packages/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
