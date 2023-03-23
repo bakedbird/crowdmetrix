@@ -4,21 +4,26 @@ import {
   BarChart as RechartsBarChart,
   Brush,
   CartesianGrid,
+  ReferenceLine,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
 import { slate } from "tailwindcss/colors";
+import CustomBar from "./components/CustomBar";
 
 type Props = {
   data: { [key: string]: string | number }[];
-  bars: { dataKey: string; className?: string }[];
+  bars: { dataKey: string; fillClassName?: string }[];
   XAxisDataKey?: string;
   YAxisDataKey?: string;
   showTooltip?: boolean;
   shoowCartesianGrid?: boolean;
   showBrush?: boolean;
+  average?: number;
+  showAverageComparison?: boolean;
+  showAverageLine?: boolean;
 };
 const BarChart = ({
   data,
@@ -28,6 +33,9 @@ const BarChart = ({
   showTooltip,
   shoowCartesianGrid,
   showBrush,
+  average,
+  showAverageComparison,
+  showAverageLine,
 }: Props) => {
   const { isDarkMode } = useDarkModeContextStore();
 
@@ -67,14 +75,37 @@ const BarChart = ({
             labelClassName="text-teal-500 font-semibold"
           />
         )}
-        {bars.map(({ dataKey, className }) => (
-          <Bar dataKey={dataKey} className={className ?? "fill-teal-500"} />
+        {bars.map(({ dataKey, fillClassName }, idx) => (
+          <Bar
+            key={`bar-${idx}`}
+            dataKey={"value"}
+            shape={
+              // Note: Recharts has a bug when using the built-in Cell component
+              // in combination with the Brush. Specifically, when the Brush is
+              // shrinked to narrow down the shown data, the bar indices are not
+              // updated. We use a custom shape to allow the user to differentiate
+              // the bg colour of the bar based on the average, and avoid that bug
+              <CustomBar
+                dataKey={dataKey}
+                average={average}
+                showAverageComparison={showAverageComparison}
+                className={fillClassName}
+              />
+            }
+          />
         ))}
         {showBrush && (
           <Brush
             dataKey="time"
             fill={slate[isDarkMode ? "800" : "50"]}
-            stroke={slate[isDarkMode ? "400" : "400"]}
+            stroke={slate["400"]}
+          />
+        )}
+        {average && showAverageLine && (
+          <ReferenceLine
+            y={average}
+            stroke={slate[isDarkMode ? "100" : "900"]}
+            strokeDasharray="15 5"
           />
         )}
       </RechartsBarChart>

@@ -147,9 +147,12 @@ const AppDashboard = () => {
               XAxisDataKey="time"
               YAxisDataKey="value"
               bars={[{ dataKey: "value" }]}
+              average={600}
               showTooltip
               shoowCartesianGrid
               showBrush
+              showAverageComparison
+              showAverageLine
             />
           </div>
         </Card>
