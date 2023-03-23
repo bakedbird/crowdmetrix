@@ -1,23 +1,20 @@
 import { Switch as HUISwitch } from "@headlessui/react";
 import cn from "classnames";
-import { useState } from "react";
 
 type Props = {
-  // enabled: boolean;
-  // onChangeEnabled: () => void;
+  enabled: boolean;
+  onChangeEnabled: () => void;
   label: string;
   info?: string;
 };
 
-const Switch = ({ label, info }: Props) => {
-  const [enabled, setEnabled] = useState(false);
-
+const Switch = ({ label, enabled, onChangeEnabled, info }: Props) => {
   return (
     <HUISwitch.Group as="div" className="mb-4 flex flex-col items-start">
       <div className="flex items-center gap-2">
         <HUISwitch
           checked={enabled}
-          onChange={setEnabled}
+          onChange={onChangeEnabled}
           className={cn(
             "relative inline-flex h-6 w-11 items-center rounded-full",
             enabled
