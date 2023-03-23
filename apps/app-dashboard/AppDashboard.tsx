@@ -1,5 +1,6 @@
 import { Card } from "@core-ui/card";
 import { BarChart } from "@core-ui/chart";
+import { Switch } from "@core-ui/switch";
 
 import { DashboardLayout } from "@crowdmetrix-ui/layout";
 import { useEffect, useState } from "react";
@@ -157,14 +158,27 @@ const AppDashboard = () => {
           </div>
         </Card>
         <Card className="w-full xl:w-1/4">
-          <p className="text-xl font-semibold mb-4">Filters</p>
+          <p className="text-xl font-semibold mb-4">Filter options</p>
           <button className="block" onClick={filterDateRange}>
             range dates
           </button>
-          <button className="block" onClick={normaliseData}>
+          {/* <button className="block" onClick={normaliseData}>
             normalise data
           </button>
-          <button onClick={denormaliseData}>denormalise data</button>
+          <button onClick={denormaliseData}>denormalise data</button> */}
+
+          <Switch
+            label="Normalise data"
+            info="Scales the data set down in the range of 0% - 100%"
+          />
+          <Switch
+            label="Show average line"
+            info="Shows a line that denotes the average value"
+          />
+          <Switch
+            label="Data comparison"
+            info="Bars that are below the average turn red"
+          />
         </Card>
       </div>
     </DashboardLayout>
