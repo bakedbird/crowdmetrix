@@ -1,5 +1,6 @@
 import { Card } from "@core-ui/card";
 import { BarChart } from "@core-ui/chart";
+import { DateRangePicker } from "@core-ui/date-range-picker";
 import { Select } from "@core-ui/select";
 import { Switch } from "@core-ui/switch";
 
@@ -72,6 +73,10 @@ const AppDashboard = () => {
         </Card>
         <Card className="w-full xl:w-1/4">
           <p className="text-xl font-semibold mb-4">Filter options</p>
+          <DateRangePicker
+            defaultStartEndDateTimes={[new Date(), new Date()]}
+            onConfirm={(r) => console.log(r)}
+          />
           <Select
             data={dateRanges}
             selectedDataItem={selectedDateRange}

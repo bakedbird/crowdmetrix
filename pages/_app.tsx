@@ -1,6 +1,7 @@
 import { PageLayout } from "@crowdmetrix-ui/layout";
 import { DarkModeContextProvider } from "@crowdmetrix/dark-mode";
 import type { AppProps } from "next/app";
+import "../styles/date-range-picker.css";
 import "../styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {

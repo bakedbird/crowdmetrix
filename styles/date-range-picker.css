@@ -1,0 +1,97 @@
+.react-minimal-datetime-range__range {
+  @apply !relative mb-4;
+}
+
+.react-minimal-datetime-range__range-input-wrapper {
+  @apply justify-between flex-wrap !flex !h-auto w-full !rounded-lg relative;
+  @apply !bg-white dark:!bg-slate-900 !border dark:!border-slate-600 dark:!text-slate-300;
+}
+
+.react-minimal-datetime-range__range-input {
+  @apply py-1 px-1.5 h-full text-base flex-1 !w-auto;
+}
+
+.react-minimal-datetime-range__range-input-separator {
+  @apply !hidden;
+}
+
+.react-minimal-datetime-range__clear,
+.react-minimal-datetime-range__col.react-minimal-datetime-range-calendar__sub-previous
+  svg,
+.react-minimal-datetime-range__col.react-minimal-datetime-range-calendar__previous
+  svg,
+.react-minimal-datetime-range__col.react-minimal-datetime-range-calendar__sub-next
+  svg,
+.react-minimal-datetime-range__col.react-minimal-datetime-range-calendar__next
+  svg {
+  @apply fill-slate-400 !w-5 !h-5;
+}
+
+.react-minimal-datetime-range {
+  @apply !transform-none !transition-none !shadow-lg;
+}
+
+.react-minimal-datetime-range.visible,
+.react-minimal-datetime-range-dropdown-calendar__menu {
+  @apply z-50 absolute mt-1 rounded-lg border p-2 dark:!border-slate-500 dark:!bg-slate-700 min-w-full;
+}
+
+.react-minimal-datetime-date-piker {
+  @apply flex justify-center flex-wrap;
+}
+
+.react-minimal-datetime-range-calendar__table.slide {
+  @apply w-full;
+}
+
+.react-minimal-datetime-range-dropdown-calendar__month,
+.react-minimal-datetime-range-dropdown-calendar__year {
+  @apply !bg-transparent;
+}
+
+.react-minimal-datetime-range-calendar__table-cel,
+.react-minimal-datetime-range-dropdown-calendar__month-item div,
+.react-minimal-datetime-range-dropdown-calendar__year-item span,
+.react-minimal-datetime-range-dropdown-calendar__month-item,
+.react-minimal-datetime-range-dropdown-calendar__year-item {
+  @apply !bg-transparent hover:!bg-teal-500;
+}
+
+.react-minimal-datetime-range-calendar__table-cel.react-minimal-datetime-range-calendar__date-item.range.active,
+.react-minimal-datetime-range-dropdown-calendar__month-item.active div,
+.react-minimal-datetime-range-dropdown-calendar__year-item.active span,
+.react-minimal-datetime-range__time-select-option.active {
+  @apply !bg-teal-500 !text-teal-50 hover:!bg-teal-500;
+}
+
+.react-minimal-datetime-range-calendar__table-cel.react-minimal-datetime-range-calendar__date-item.range.highlight {
+  @apply !bg-teal-100 dark:!bg-teal-300 !text-teal-600;
+}
+
+.react-minimal-datetime-range__time-select-option {
+  @apply hover:!bg-teal-100  dark:hover:!bg-teal-300 hover:!text-teal-600 !px-2;
+}
+
+.react-minimal-datetime-range-calendar__table-cel.react-minimal-datetime-range-calendar__date-item.range.today {
+  @apply !text-teal-600 font-bold;
+}
+
+.react-minimal-datetime-range-calendar__title {
+  @apply hover:!text-teal-500;
+}
+
+.react-minimal-datetime-range__button.react-minimal-datetime-range__button--confirm {
+  @apply bg-teal-500 rounded-lg text-base dark:border-teal-600;
+}
+
+.react-minimal-datetime-range__button.react-minimal-datetime-range__button--confirm.disabled {
+  @apply bg-slate-300 text-slate-400 dark:bg-slate-600 dark:border-slate-500;
+}
+
+.react-minimal-datetime-range__button.react-minimal-datetime-range__button--type {
+  @apply text-teal-500 text-base;
+}
+
+.react-minimal-datetime-range__time-piker {
+  @apply dark:!bg-slate-700;
+}
