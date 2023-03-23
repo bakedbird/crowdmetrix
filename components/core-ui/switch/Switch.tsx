@@ -20,12 +20,14 @@ const Switch = ({ label, info }: Props) => {
           onChange={setEnabled}
           className={cn(
             "relative inline-flex h-6 w-11 items-center rounded-full",
-            enabled ? "bg-teal-500" : "bg-slate-200 dark:bg-slate-500"
+            enabled
+              ? "bg-teal-500"
+              : "bg-slate-200 dark:bg-slate-900 border dark:border-slate-600"
           )}
         >
           <span
             className={cn(
-              "inline-block h-4 w-4 rounded-full bg-slate-50 dark:bg-slate-800 transition transform",
+              "inline-block h-4 w-4 rounded-full bg-slate-50 dark:bg-slate-600 transition transform",
               enabled ? "translate-x-6" : "translate-x-1"
             )}
           />

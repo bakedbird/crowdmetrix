@@ -1,5 +1,6 @@
 import { Card } from "@core-ui/card";
 import { BarChart } from "@core-ui/chart";
+import { Select } from "@core-ui/select";
 import { Switch } from "@core-ui/switch";
 
 import { DashboardLayout } from "@crowdmetrix-ui/layout";
@@ -84,6 +85,13 @@ const rawData = [
   { time: "2021-11-03T01:00:00+01:00", value: 641 },
 ];
 
+const dateRanges = [
+  { key: "today", value: "Today" },
+  { key: "yesterday", value: "Yesterday" },
+  { key: "last-7-days", value: "Last 7 days" },
+  { key: "custom-range", value: "Custom range" },
+];
+
 const AppDashboard = () => {
   const [data, setData] = useState<{ [key: string]: string | number }[]>([]);
   const [min, setMin] = useState(0);
@@ -159,9 +167,14 @@ const AppDashboard = () => {
         </Card>
         <Card className="w-full xl:w-1/4">
           <p className="text-xl font-semibold mb-4">Filter options</p>
-          <button className="block" onClick={filterDateRange}>
+          <Select
+            data={dateRanges}
+            label="Date range"
+            info="Select the range of dates to show data"
+          />
+          {/* <button className="block" onClick={filterDateRange}>
             range dates
-          </button>
+          </button> */}
           {/* <button className="block" onClick={normaliseData}>
             normalise data
           </button>
