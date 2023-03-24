@@ -6,7 +6,19 @@ export type Footfall = {
   value: number;
 };
 
-export type DateRange = { key: string; value: string };
+export const RANGE_KEY = {
+  TODAY: "today",
+  YESTERDAY: "yesterday",
+  LAST_WEEK: "last-7-days",
+  CUSTOM: "custom-range",
+} as const;
+
+type RANGE_KEY_VALUE = typeof RANGE_KEY[keyof typeof RANGE_KEY];
+
+export type DateRange = {
+  key: RANGE_KEY_VALUE;
+  value: string;
+};
 
 export type FootfallContextStore = {
   footfallData: Footfall[];

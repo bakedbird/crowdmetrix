@@ -4,21 +4,21 @@ import cn from "classnames";
 
 type DataItem = { key: string; value: string };
 
-type Props = {
-  data: DataItem[];
-  selectedDataItem: DataItem;
-  onChangeSelectedDataItem: (item: DataItem) => void;
+type Props<DI extends DataItem> = {
+  data: DI[];
+  selectedDataItem: DI;
+  onChangeSelectedDataItem: (item: DI) => void;
   label: string;
   info?: string;
 };
 
-const Select = ({
+const Select = <DI extends DataItem>({
   data,
   selectedDataItem,
   onChangeSelectedDataItem,
   label,
   info,
-}: Props) => (
+}: Props<DI>) => (
   <Listbox
     value={selectedDataItem}
     onChange={onChangeSelectedDataItem}

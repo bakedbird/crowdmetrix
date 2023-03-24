@@ -6,7 +6,7 @@ const now = new Date();
 
 type Props = {
   defaultStartEndDateTimes: [Date, Date];
-  onConfirm: (res: Date[]) => void;
+  onConfirm: (res: [Date, Date]) => void;
   placeholder?: [string, string];
   disabled?: boolean;
 };

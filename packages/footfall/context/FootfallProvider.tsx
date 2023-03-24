@@ -21,7 +21,7 @@ const initialStore: FootfallContextStore = {
     { key: "last-7-days", value: "Last 7 days" },
     { key: "custom-range", value: "Custom range" },
   ],
-  selectedDateRange: { key: "today", value: "Today" },
+  selectedDateRange: { key: "last-7-days", value: "Last 7 days" },
   isAverageLineShown: false,
   isDataComparisonShown: false,
   isDataNormalised: false,

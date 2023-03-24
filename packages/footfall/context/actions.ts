@@ -1,3 +1,4 @@
+import { getDaysAgoDate } from "../helpers";
 import { ACTIONS, DateRange, Footfall, FootfallContextAction } from "../types";
 
 const setFootfallData = (payload: Footfall[]): FootfallContextAction => ({
@@ -25,6 +26,33 @@ const toggleIsDataComparisonShown = (): FootfallContextAction => ({
   payload: null,
 });
 
+const fetchDateRangeFootfallData =
+  (dateRange: DateRange, dates?: [Date, Date]) =>
+  async (dispatch: React.Dispatch<FootfallContextAction>) => {
+    if (dateRange.key === "custom-range" && dates) {
+      console.log(dates);
+      // await for the data
+    } else {
+      switch (dateRange.key) {
+        case "today":
+          console.log(new Date());
+          break;
+        case "yesterday":
+          console.log(getDaysAgoDate(1));
+          break;
+        case "last-7-days":
+          console.log(getDaysAgoDate(7));
+          break;
+
+        default:
+          break;
+      }
+    }
+    if (!dates) {
+      dispatch(setSelectedDateRange(dateRange));
+    }
+  };
+
 export const FootfallContextActions = {
   setFootfallData,
   setSelectedDateRange,
@@ -32,3 +60,5 @@ export const FootfallContextActions = {
   toggleIsAverageLineShown,
   toggleIsDataComparisonShown,
 };
+
+export const AsyncFootfallContextActions = { fetchDateRangeFootfallData };
