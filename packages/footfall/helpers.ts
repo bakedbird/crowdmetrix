@@ -32,8 +32,3 @@ export const denormaliseData = (data: Footfall[], min: number, max: number) => {
 
   return { footfallData, average };
 };
-
-// Returns a Date object that is n days ago from today
-// 24 * 3600 * 1000 = ms of a single day
-export const getDaysAgoDate = (days = 1) =>
-  new Date(Date.now() - 24 * 3600 * 1000 * days);

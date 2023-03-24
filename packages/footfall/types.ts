@@ -1,7 +1,6 @@
 import { ContextAction } from "custom-types";
 
 export type Footfall = {
-  id: number;
   time: string;
   value: number;
 };
@@ -44,8 +43,8 @@ export enum ACTIONS {
 export type FootfallContextAction = ContextAction<ACTIONS>;
 
 export type GetFootfallReq = {
+  dateRange: DateRangeKeyValue;
   dates?: [Date, Date];
-  dateRange?: DateRangeKeyValue;
 };
 
 export type GetFootfallRes = {
