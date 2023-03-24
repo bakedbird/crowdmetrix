@@ -1,7 +1,12 @@
-import { getDaysAgoDate } from "../helpers";
-import { ACTIONS, DateRange, Footfall, FootfallContextAction } from "../types";
+import { FootfallApi } from "..";
+import {
+  ACTIONS,
+  DateRange,
+  FootfallContextAction,
+  GetFootfallRes,
+} from "../types";
 
-const setFootfallData = (payload: Footfall[]): FootfallContextAction => ({
+const setFootfallData = (payload: GetFootfallRes): FootfallContextAction => ({
   type: ACTIONS.SET_FOOTFALL_DATA,
   payload,
 });
@@ -30,22 +35,18 @@ const fetchDateRangeFootfallData =
   (dateRange: DateRange, dates?: [Date, Date]) =>
   async (dispatch: React.Dispatch<FootfallContextAction>) => {
     if (dateRange.key === "custom-range" && dates) {
-      console.log(dates);
-      // await for the data
-    } else {
-      switch (dateRange.key) {
-        case "today":
-          console.log(new Date());
-          break;
-        case "yesterday":
-          console.log(getDaysAgoDate(1));
-          break;
-        case "last-7-days":
-          console.log(getDaysAgoDate(7));
-          break;
+      FootfallApi.getFootfall({ dates, dateRange: dateRange.key }).then(
+        ({ data }) => {
+          dispatch(setFootfallData(data));
+        }
+      );
+    } else if (dateRange.key !== "custom-range") {
+      const data = await FootfallApi.getFootfall({
+        dateRange: dateRange.key,
+      }).then((r) => r.data);
 
-        default:
-          break;
+      if (data) {
+        dispatch(setFootfallData(data));
       }
     }
     if (!dates) {

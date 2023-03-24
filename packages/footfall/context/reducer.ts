@@ -7,7 +7,7 @@ export const reducer = (
 ): FootfallContextStore => {
   switch (action.type) {
     case ACTIONS.SET_FOOTFALL_DATA:
-      return { ...store, footfallData: action.payload };
+      return { ...store, ...action.payload, footfallData: action.payload.data };
 
     case ACTIONS.SET_SELECTED_DATE_RANGE:
       return { ...store, selectedDateRange: action.payload };

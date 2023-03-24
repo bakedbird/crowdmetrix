@@ -6,17 +6,17 @@ export type Footfall = {
   value: number;
 };
 
-export const RANGE_KEY = {
+export const DateRangeKey = {
   TODAY: "today",
   YESTERDAY: "yesterday",
   LAST_WEEK: "last-7-days",
   CUSTOM: "custom-range",
 } as const;
 
-type RANGE_KEY_VALUE = typeof RANGE_KEY[keyof typeof RANGE_KEY];
+export type DateRangeKeyValue = typeof DateRangeKey[keyof typeof DateRangeKey];
 
 export type DateRange = {
-  key: RANGE_KEY_VALUE;
+  key: DateRangeKeyValue;
   value: string;
 };
 
@@ -42,3 +42,15 @@ export enum ACTIONS {
 }
 
 export type FootfallContextAction = ContextAction<ACTIONS>;
+
+export type GetFootfallReq = {
+  dates?: [Date, Date];
+  dateRange?: DateRangeKeyValue;
+};
+
+export type GetFootfallRes = {
+  data: Footfall[];
+  max: number;
+  min: number;
+  average: number;
+};

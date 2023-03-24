@@ -1,8 +1,19 @@
 import { DashboardLayout } from "@crowdmetrix-ui/layout";
+import { useFootfallContext } from "@crowdmetrix/footfall";
+import { AsyncFootfallContextActions } from "@crowdmetrix/footfall/context/actions";
+import { useEffect } from "react";
 import FiltersCard from "./components/FiltersCard";
 import FootfallGraphCard from "./components/FootfallGraphCard";
 
 const AppDashboard = () => {
+  const { store, dispatch } = useFootfallContext();
+
+  useEffect(() => {
+    AsyncFootfallContextActions.fetchDateRangeFootfallData(
+      store.selectedDateRange
+    )(dispatch);
+  }, []);
+
   // const filterDateRange = () => {
   //   setData((prev) =>
   //     prev.filter((p) => {
