@@ -12,6 +12,7 @@ import { AsyncFootfallContextActions } from "@crowdmetrix/footfall/context/actio
 const FiltersCard = () => {
   const {
     store: {
+      footfallData,
       dateRanges,
       isDataNormalised,
       isDataComparisonShown,
@@ -50,33 +51,34 @@ const FiltersCard = () => {
         info="Select the range of dates to show data"
       />
       {selectedDateRange.key === "custom-range" && (
-        <div className="border-b dark:border-b-slate-600 mb-4">
-          <DateRangePicker
-            defaultStartEndDateTimes={[new Date(), new Date()]}
-            onConfirm={(dates) =>
-              onChangeSelectedDateRangeItem(selectedDateRange, dates)
-            }
+        <DateRangePicker
+          onConfirm={(dates) =>
+            onChangeSelectedDateRangeItem(selectedDateRange, dates)
+          }
+        />
+      )}
+      {!!footfallData.length && (
+        <div className="border-t pt-4">
+          <Switch
+            enabled={isDataNormalised}
+            onChangeEnabled={onChangeIsDataNormalised}
+            label="Normalise data"
+            info="Scales the data set down in the range of 0% - 100%"
+          />
+          <Switch
+            enabled={isAverageLineShown}
+            onChangeEnabled={onChangeIsAverageLineShown}
+            label="Show average line"
+            info="Shows a line that denotes the average value"
+          />
+          <Switch
+            enabled={isDataComparisonShown}
+            onChangeEnabled={onChangeIsDataComparisonShown}
+            label="Data comparison"
+            info="Bars that are below the average turn red"
           />
         </div>
       )}
-      <Switch
-        enabled={isDataNormalised}
-        onChangeEnabled={onChangeIsDataNormalised}
-        label="Normalise data"
-        info="Scales the data set down in the range of 0% - 100%"
-      />
-      <Switch
-        enabled={isAverageLineShown}
-        onChangeEnabled={onChangeIsAverageLineShown}
-        label="Show average line"
-        info="Shows a line that denotes the average value"
-      />
-      <Switch
-        enabled={isDataComparisonShown}
-        onChangeEnabled={onChangeIsDataComparisonShown}
-        label="Data comparison"
-        info="Bars that are below the average turn red"
-      />
     </Card>
   );
 };
