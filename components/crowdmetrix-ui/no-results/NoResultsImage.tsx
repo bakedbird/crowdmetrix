@@ -237,7 +237,8 @@ const NoResultsImage = () => {
         className="fill-slate-200 dark:fill-slate-700"
         d="M911.628 1H147.675V595.186H911.628V1Z"
         stroke="#868A91"
-        stroke-miterlimit="10"
+        strokeMiterlimit={10}
+        // strokeMiterlimit="10"
       />
       <path
         d="M303.488 78.9067H180.232V85.8835H303.488V78.9067Z"
@@ -315,32 +316,32 @@ const NoResultsImage = () => {
       <path
         d="M284.884 128.907V516.116H826.744"
         stroke="black"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M306.977 183.558H833.721"
         stroke="black"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M308.14 266.116H834.884"
         stroke="black"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M308.14 348.674H834.884"
         stroke="black"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M309.303 431.232H836.047"
         stroke="black"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M910.465 1H148.837V48.6744H910.465V1Z"
@@ -550,17 +551,17 @@ const NoResultsImage = () => {
         opacity="0.15"
         d="M175.581 370.767L167.441 366.116"
         stroke="black"
-        stroke-width="0.62"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.62"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         opacity="0.15"
         d="M169.767 375.419L163.953 371.93"
         stroke="black"
-        stroke-width="0.62"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.62"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M113.343 170.768L109.348 230.528C109.121 233.163 109.757 235.799 111.159 238.044C119.798 251.661 149.028 264.231 168.1 238.044C169.799 235.727 171.336 233.312 170.834 230.496L164.623 187.313L113.343 170.768Z"
