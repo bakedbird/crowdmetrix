@@ -22,6 +22,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-minimal-datetime-range": "^2.0.7",
+    "react-toastify": "^9.1.2",
     "react-transition-group": "^4.2.2",
     "recharts": "^2.5.0",
     "typescript": "5.0.2"

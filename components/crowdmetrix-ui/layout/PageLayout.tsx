@@ -4,6 +4,7 @@ import { Header } from "@crowdmetrix-ui/header";
 import { ROUTES } from "@crowdmetrix/router";
 import { ComponentChildren } from "custom-types";
 import { useRouter } from "next/router";
+import { ToastContainer } from "react-toastify";
 
 type Props = { children: ComponentChildren };
 
@@ -16,6 +17,7 @@ const PageLayout = ({ children }: Props) => {
       <Header />
       <main className="grow flex flex-col">{children}</main>
       {!router.asPath.startsWith(ROUTES.APP_HOME) && <Footer />}
+      <ToastContainer />
     </div>
   );
 };

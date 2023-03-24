@@ -1,6 +1,7 @@
 import { PageLayout } from "@crowdmetrix-ui/layout";
 import { DarkModeContextProvider } from "@crowdmetrix/dark-mode";
 import type { AppProps } from "next/app";
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/date-range-picker.css";
 import "../styles/globals.css";
 
