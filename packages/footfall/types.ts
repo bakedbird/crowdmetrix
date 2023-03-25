@@ -1,6 +1,7 @@
 import { ContextAction } from "custom-types";
 
 export type Footfall = {
+  id: number;
   time: string;
   value: number;
 };
@@ -27,9 +28,19 @@ export type FootfallContextStore = {
   isDataComparisonShown: boolean;
   isDataNormalised: boolean;
   average: number;
+  total: number;
   normalisedAverage: number;
   min: number;
   max: number;
+  emptyDays: number;
+  mostVisitedDay: string;
+  prevPeriodData: Footfall[];
+  prevAverage: number;
+  prevTotal: number;
+  prevEmptyDays: number;
+  prevMostVisitedDay: string;
+  prevMax: number;
+  prevMin: number;
 };
 
 export enum ACTIONS {
@@ -52,4 +63,14 @@ export type GetFootfallRes = {
   max: number;
   min: number;
   average: number;
+  total: number;
+  emptyDays: number;
+  mostVisitedDay: string;
+  prevPeriodData: Footfall[];
+  prevAverage: number;
+  prevTotal: number;
+  prevEmptyDays: number;
+  prevMostVisitedDay: string;
+  prevMax: number;
+  prevMin: number;
 };

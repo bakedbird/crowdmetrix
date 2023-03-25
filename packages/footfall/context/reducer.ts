@@ -17,11 +17,16 @@ export const reducer = (
         ? denormaliseData(store.footfallData, store.min, store.max)
         : normaliseData(store.footfallData, store.min, store.max);
 
+      let { footfallData: prevPeriodData } = store.isDataNormalised
+        ? denormaliseData(store.prevPeriodData, store.prevMin, store.prevMax)
+        : normaliseData(store.prevPeriodData, store.prevMin, store.prevMax);
+
       return {
         ...store,
         isDataNormalised: !store.isDataNormalised,
         footfallData,
         average,
+        prevPeriodData,
       };
 
     case ACTIONS.TOGGLE_IS_AVERAGE_LINE_SHOWN:

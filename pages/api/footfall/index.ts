@@ -6,11 +6,25 @@ import {
 } from "@crowdmetrix/footfall";
 import {
   calculateAverage,
+  calculateEmptyDays,
   calculateMax,
   calculateMin,
+  calculateMostVisitedDay,
+  calculateTotal,
 } from "@crowdmetrix/footfall/helpers";
 import type { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../database.json";
+
+const getPreviousPeriodData = (currentStartId: number, dataLength: number) => {
+  if (!currentStartId) return [];
+
+  let prevStartId = currentStartId - dataLength;
+  let prevEndId = currentStartId - 1;
+
+  return db.footfall.filter(
+    (item) => item.id >= prevStartId && item.id <= prevEndId
+  );
+};
 
 const filterFootfallByDateRange = (
   footfallItems: Footfall[],
@@ -124,12 +138,22 @@ export default (req: NextApiRequest, res: NextApiResponse<GetFootfallRes>) => {
     dates as [string, string]
   );
 
-  data = formatFootfallDates(data);
+  let prevPeriod = getPreviousPeriodData(data[0]?.id, data.length);
 
   res.status(200).json({
-    data,
+    data: formatFootfallDates(data),
     max: calculateMax(data),
     min: calculateMin(data),
     average: calculateAverage(data),
+    total: calculateTotal(data),
+    emptyDays: calculateEmptyDays(data),
+    mostVisitedDay: calculateMostVisitedDay(data),
+    prevPeriodData: prevPeriod,
+    prevAverage: calculateAverage(prevPeriod),
+    prevTotal: calculateTotal(prevPeriod),
+    prevEmptyDays: calculateEmptyDays(prevPeriod),
+    prevMostVisitedDay: calculateMostVisitedDay(prevPeriod),
+    prevMax: calculateMax(prevPeriod),
+    prevMin: calculateMin(prevPeriod),
   });
 };

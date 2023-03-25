@@ -1,9 +1,10 @@
 import { useDarkModeContextStore } from "@crowdmetrix/dark-mode";
 import {
   Bar,
-  BarChart as RechartsBarChart,
   Brush,
   CartesianGrid,
+  ComposedChart,
+  Line,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
@@ -15,52 +16,41 @@ import CustomBar from "./components/CustomBar";
 
 type Props = {
   data: { [key: string]: string | number }[];
-  bars: { dataKey: string; fillClassName?: string }[];
-  XAxisDataKey?: string;
-  YAxisDataKey?: string;
-  showTooltip?: boolean;
-  shoowCartesianGrid?: boolean;
-  showBrush?: boolean;
+  comparisonData?: { [key: string]: string | number }[];
   average?: number;
   showAverageComparison?: boolean;
   showAverageLine?: boolean;
 };
-const BarChart = ({
+const FootfallChart = ({
   data,
-  bars,
-  XAxisDataKey,
-  YAxisDataKey,
-  showTooltip,
-  shoowCartesianGrid,
-  showBrush,
+  comparisonData,
   average,
   showAverageComparison,
   showAverageLine,
 }: Props) => {
   const { isDarkMode } = useDarkModeContextStore();
 
+  // Create a new dataset that adds the 'comparisonData' to the data if it exists.
+  // In this case, we can show a line along with the bar to compare the data
+  const dataSets = data.map((dataItem, idx) => ({
+    data: dataItem.value,
+    ...(comparisonData?.length
+      ? { comparisonData: comparisonData[idx]?.value }
+      : {}),
+    ...dataItem,
+  }));
+
   return (
-    <ResponsiveContainer>
-      <RechartsBarChart data={data}>
-        {shoowCartesianGrid && (
+    <div className="h-96 py-10">
+      <ResponsiveContainer>
+        <ComposedChart data={dataSets}>
+          <XAxis dataKey="time" stroke={slate[isDarkMode ? "300" : "700"]} />
+          <YAxis stroke={slate[isDarkMode ? "300" : "700"]} />
           <CartesianGrid
+            vertical={false}
             stroke={slate[isDarkMode ? "600" : "300"]}
-            strokeDasharray={5}
+            strokeDasharray="10 15"
           />
-        )}
-        {XAxisDataKey && (
-          <XAxis
-            stroke={slate[isDarkMode ? "300" : "700"]}
-            dataKey={XAxisDataKey}
-          />
-        )}
-        {YAxisDataKey && (
-          <YAxis
-            stroke={slate[isDarkMode ? "300" : "700"]}
-            dataKey={YAxisDataKey}
-          />
-        )}
-        {showTooltip && (
           <Tooltip
             cursor={{ fill: slate[isDarkMode ? "700" : "200"] }}
             contentStyle={{
@@ -74,11 +64,9 @@ const BarChart = ({
             }}
             labelClassName="text-teal-500 font-semibold"
           />
-        )}
-        {bars.map(({ dataKey, fillClassName }, idx) => (
+
           <Bar
-            key={`bar-${idx}`}
-            dataKey={"value"}
+            dataKey={"data"}
             shape={
               // Note: Recharts has a bug when using the built-in Cell component
               // in combination with the Brush. Specifically, when the Brush is
@@ -86,30 +74,30 @@ const BarChart = ({
               // updated. We use a custom shape to allow the user to differentiate
               // the bg colour of the bar based on the average, and avoid that bug
               <CustomBar
-                dataKey={dataKey}
+                dataKey={"data"}
                 average={average}
                 showAverageComparison={showAverageComparison}
-                className={fillClassName}
               />
             }
           />
-        ))}
-        {showBrush && (
+          <Line dataKey={"comparisonData"} stroke={slate[500]} />
+
           <Brush
             dataKey="time"
             fill={slate[isDarkMode ? "800" : "50"]}
             stroke={slate["400"]}
           />
-        )}
-        {average && showAverageLine && (
-          <ReferenceLine
-            y={average}
-            stroke={slate[isDarkMode ? "100" : "900"]}
-            strokeDasharray="15 5"
-          />
-        )}
-      </RechartsBarChart>
-    </ResponsiveContainer>
+
+          {average && showAverageLine && (
+            <ReferenceLine
+              y={average}
+              stroke={slate[isDarkMode ? "100" : "900"]}
+              strokeDasharray="15 5"
+            />
+          )}
+        </ComposedChart>
+      </ResponsiveContainer>
+    </div>
   );
 };
-export default BarChart;
+export default FootfallChart;

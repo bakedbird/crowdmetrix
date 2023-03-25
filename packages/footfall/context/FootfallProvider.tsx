@@ -16,9 +16,19 @@ const initialStore: FootfallContextStore = {
   isDataComparisonShown: false,
   isDataNormalised: false,
   average: 0,
+  total: 0,
   normalisedAverage: 0,
   min: 0,
   max: 0,
+  emptyDays: 0,
+  mostVisitedDay: "",
+  prevPeriodData: [],
+  prevAverage: 0,
+  prevTotal: 0,
+  prevEmptyDays: 0,
+  prevMostVisitedDay: "",
+  prevMax: 0,
+  prevMin: 0,
 };
 
 const FootfallContext = React.createContext<

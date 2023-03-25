@@ -4,7 +4,6 @@ type Props = {
   dataKey: string;
   average?: number;
   showAverageComparison?: boolean;
-  className?: string;
 
   // NOTE: This generic is used to destructure the rest
   // of the props passed from the recharts Bar component
@@ -15,7 +14,7 @@ const CustomBar = ({
   dataKey,
   average,
   showAverageComparison,
-  className,
+
   ...props
 }: Props) => (
   <Rectangle
@@ -23,7 +22,7 @@ const CustomBar = ({
     className={
       average && showAverageComparison && props[dataKey] < average
         ? "fill-rose-500"
-        : className ?? "fill-teal-500"
+        : "fill-teal-500"
     }
   />
 );

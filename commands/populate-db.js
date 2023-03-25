@@ -46,7 +46,7 @@ const csvToJson = (fileData, delimiter) => {
     .split(delimiter)
     .map((header) => removeUnneededChars(header).toLowerCase());
 
-  lines = lines.map((line) => {
+  lines = lines.map((line, id) => {
     let lineValues = line.split(delimiter).map((value) => {
       let sanitised = removeUnneededChars(value);
 
@@ -57,9 +57,12 @@ const csvToJson = (fileData, delimiter) => {
         : sanitised;
     });
 
-    let resLine = headers.reduce((acc, curr, idx) => {
-      return { ...acc, [curr]: lineValues[idx] };
-    }, {});
+    let resLine = headers.reduce(
+      (acc, curr, idx) => {
+        return { ...acc, [curr]: lineValues[idx] };
+      },
+      { id }
+    );
 
     result.push(resLine);
   });

@@ -1,30 +1,70 @@
 import { Card } from "@core-ui/card";
-import { BarChart } from "@core-ui/chart";
+import ChartStatItem from "@crowdmetrix-ui/chart-stat/ChartStatItem";
+import ChartStatsCard from "@crowdmetrix-ui/chart-stat/ChartStatsCard";
+import { FootfallChart } from "@crowdmetrix-ui/footfall-chart";
 import { NoResults } from "@crowdmetrix-ui/no-results";
 import { useFootfallContextStore } from "@crowdmetrix/footfall";
 
 const FootfallGraphCard = () => {
-  const { footfallData, average, isDataComparisonShown, isAverageLineShown } =
-    useFootfallContextStore();
+  const {
+    footfallData,
+    total,
+    average,
+    emptyDays,
+    mostVisitedDay,
+    prevPeriodData,
+    prevAverage,
+    prevEmptyDays,
+    prevMostVisitedDay,
+    prevTotal,
+    isDataComparisonShown,
+    isAverageLineShown,
+    isDataNormalised,
+  } = useFootfallContextStore();
 
   return (
     <Card className="w-full xl:w-3/4">
       <p className="text-xl font-semibold mb-4">Daily footfall</p>
       {!!footfallData.length ? (
-        <div className="h-96 py-10">
-          <BarChart
+        <>
+          <ChartStatsCard>
+            <ChartStatItem
+              label="Total visitors"
+              current={total}
+              prev={prevTotal}
+              prevBadWhen="up"
+              hidePrev={!prevPeriodData.length}
+            />
+            <ChartStatItem
+              label="Average visitors"
+              current={isDataNormalised ? "-" : Math.round(average)}
+              prev={isDataNormalised ? "-" : Math.round(prevAverage)}
+              prevBadWhen="up"
+              hidePrev={!prevPeriodData.length}
+            />
+            <ChartStatItem
+              label="Empty store days"
+              current={emptyDays}
+              prev={prevEmptyDays}
+              prevBadWhen="down"
+              hidePrev={!prevPeriodData.length}
+            />
+            <ChartStatItem
+              label="Most visited day"
+              current={mostVisitedDay}
+              prev={prevMostVisitedDay}
+              prevBadWhen="none"
+            />
+          </ChartStatsCard>
+
+          <FootfallChart
             data={footfallData}
-            XAxisDataKey="time"
-            YAxisDataKey="value"
-            bars={[{ dataKey: "value" }]}
+            comparisonData={prevPeriodData}
             average={average}
-            showTooltip
-            shoowCartesianGrid
-            showBrush
             showAverageComparison={isDataComparisonShown}
             showAverageLine={isAverageLineShown}
           />
-        </div>
+        </>
       ) : (
         <NoResults
           title="No data to show"

@@ -77,6 +77,9 @@ const toDateOrTimeFormat = (
 const isValidDate = (dateToCheck: Date | string) =>
   dateToCheck instanceof Date || !!Date.parse(dateToCheck);
 
+const toDayString = (date: Date) =>
+  date.toLocaleString("en-us", { weekday: "long" });
+
 export default {
   getDaysAgoDate,
   isSameDay,
@@ -85,4 +88,5 @@ export default {
   toDateOrTimeFormat,
   isValidDate,
   toDateAndTimeStirngFormat,
+  toDayString,
 };
