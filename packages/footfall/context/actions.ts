@@ -1,3 +1,4 @@
+import showToast from "@crowdmetrix/toast";
 import { FootfallApi } from "..";
 import {
   ACTIONS,
@@ -41,13 +42,11 @@ const fetchDateRangeFootfallData =
         }
       );
     } else if (dateRange.key !== "custom-range") {
-      const data = await FootfallApi.getFootfall({
-        dateRange: dateRange.key,
-      }).then((r) => r.data);
-
-      if (data) {
-        dispatch(setFootfallData(data));
-      }
+      FootfallApi.getFootfall({ dateRange: dateRange.key })
+        .then(({ data }) => dispatch(setFootfallData(data)))
+        .catch(({ response }) =>
+          showToast(response.data.error.message, "error")
+        );
     }
     if (!dates) {
       dispatch(setSelectedDateRange(dateRange));

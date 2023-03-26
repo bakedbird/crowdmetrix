@@ -3,11 +3,11 @@ import { DateRangePicker } from "@core-ui/date-range-picker";
 import { Select } from "@core-ui/select";
 import { Switch } from "@core-ui/switch";
 import {
+  AsyncFootfallContextActions,
   DateRange,
   FootfallContextActions,
   useFootfallContext,
 } from "@crowdmetrix/footfall";
-import { AsyncFootfallContextActions } from "@crowdmetrix/footfall/context/actions";
 
 const FiltersCard = () => {
   const {

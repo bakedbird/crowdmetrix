@@ -1,3 +1,4 @@
+import { readFootfallData } from "@crowdmetrix/database";
 import { DateHelpers } from "@crowdmetrix/date";
 import {
   DateRangeKeyValue,
@@ -13,7 +14,8 @@ import {
   calculateTotal,
 } from "@crowdmetrix/footfall/helpers";
 import type { NextApiRequest, NextApiResponse } from "next";
-import db from "../../../database.json";
+
+type Response = GetFootfallRes | { error: { message: string } };
 
 const getPreviousPeriodData = (currentStartId: number, dataLength: number) => {
   if (!currentStartId) return [];
@@ -21,7 +23,11 @@ const getPreviousPeriodData = (currentStartId: number, dataLength: number) => {
   let prevStartId = currentStartId - dataLength;
   let prevEndId = currentStartId - 1;
 
-  return db.footfall.filter(
+  if (prevStartId + prevEndId < dataLength) return [];
+
+  let { footfall } = readFootfallData();
+
+  return footfall.filter(
     (item) => item.id >= prevStartId && item.id <= prevEndId
   );
 };
@@ -127,33 +133,37 @@ const formatFootfallDates = (items: Footfall[]) => {
   }
 };
 
-export default (req: NextApiRequest, res: NextApiResponse<GetFootfallRes>) => {
-  let data = db.footfall;
+export default (req: NextApiRequest, res: NextApiResponse<Response>) => {
+  try {
+    let { footfall: data } = readFootfallData();
 
-  const { "dates[]": dates, dateRange } = req.query;
+    const { "dates[]": dates, dateRange } = req.query;
 
-  data = filterFootfallByDateRange(
-    data,
-    dateRange as DateRangeKeyValue,
-    dates as [string, string]
-  );
+    data = filterFootfallByDateRange(
+      data,
+      dateRange as DateRangeKeyValue,
+      dates as [string, string]
+    );
 
-  let prevPeriod = getPreviousPeriodData(data[0]?.id, data.length);
+    let prevPeriod = getPreviousPeriodData(data[0]?.id, data.length);
 
-  res.status(200).json({
-    data: formatFootfallDates(data),
-    max: calculateMax(data),
-    min: calculateMin(data),
-    average: calculateAverage(data),
-    total: calculateTotal(data),
-    emptyDays: calculateEmptyDays(data),
-    mostVisitedDay: calculateMostVisitedDay(data),
-    prevPeriodData: prevPeriod,
-    prevAverage: calculateAverage(prevPeriod),
-    prevTotal: calculateTotal(prevPeriod),
-    prevEmptyDays: calculateEmptyDays(prevPeriod),
-    prevMostVisitedDay: calculateMostVisitedDay(prevPeriod),
-    prevMax: calculateMax(prevPeriod),
-    prevMin: calculateMin(prevPeriod),
-  });
+    res.status(200).json({
+      data: formatFootfallDates(data),
+      max: calculateMax(data),
+      min: calculateMin(data),
+      average: calculateAverage(data),
+      total: calculateTotal(data),
+      emptyDays: calculateEmptyDays(data),
+      mostVisitedDay: calculateMostVisitedDay(data),
+      prevPeriodData: prevPeriod,
+      prevAverage: calculateAverage(prevPeriod),
+      prevTotal: calculateTotal(prevPeriod),
+      prevEmptyDays: calculateEmptyDays(prevPeriod),
+      prevMostVisitedDay: calculateMostVisitedDay(prevPeriod),
+      prevMax: calculateMax(prevPeriod),
+      prevMin: calculateMin(prevPeriod),
+    });
+  } catch (error) {
+    res.status(500).json({ error: { message: "Something went wrong" } });
+  }
 };
