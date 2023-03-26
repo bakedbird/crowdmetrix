@@ -32,8 +32,10 @@ export const calculateAverage = (data: Footfall[]) =>
 export const calculateMax = (data: Footfall[]) =>
   data.reduce((acc, curr) => Math.max(curr.value, acc), 0);
 
+// use infinity as a starting point to ensure that the first `curr` is < than `acc` and work in all cases
+// For our case, this could work even if the starting acc was -1 since a store can't have negative footfall
 export const calculateMin = (data: Footfall[]) =>
-  data.reduce((acc, curr) => Math.min(curr.value, acc), 0);
+  data.reduce((acc, curr) => Math.min(curr.value, acc), Infinity);
 
 // Normalisation formula: ((x - min) / (max - min)) * 100
 export const normaliseData = (data: Footfall[], min: number, max: number) => {

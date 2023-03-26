@@ -80,6 +80,8 @@ const filterFootfallByDateRange = (
 };
 
 const formatFootfallDates = (items: Footfall[]) => {
+  items = items.sort((a, b) => a.time.localeCompare(b.time));
+
   const isAllItemsSameDay = items.every((item) =>
     DateHelpers.isSameDay([new Date(item.time), new Date(items[0].time)])
   );
