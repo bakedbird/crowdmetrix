@@ -1,6 +1,5 @@
 import { Card } from "@core-ui/card";
-import ChartStatItem from "@crowdmetrix-ui/chart-stat/ChartStatItem";
-import ChartStatsCard from "@crowdmetrix-ui/chart-stat/ChartStatsCard";
+import { ChartStatItem, ChartStatsCard } from "@crowdmetrix-ui/chart-stat";
 import { FootfallChart } from "@crowdmetrix-ui/footfall-chart";
 import { NoResults } from "@crowdmetrix-ui/no-results";
 import { useFootfallContextStore } from "@crowdmetrix/footfall";
